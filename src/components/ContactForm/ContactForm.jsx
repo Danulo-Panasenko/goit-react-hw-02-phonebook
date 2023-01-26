@@ -15,6 +15,12 @@ class ContactForm extends Component {
     number: '',
   };
 
+  removeContact(id) {
+    this.setState(({ contacts }) => {
+      const newContacts = contacts.filter(contact => contact.id !== id);
+      return { contacts: newContacts };
+    });
+  }
   addContact = e => {
     e.preventDefault();
     this.setState(prevState => {
@@ -24,7 +30,7 @@ class ContactForm extends Component {
         name,
         number,
       };
-      return { contacts: [newContact, ...contacts] };
+      return { contacts: [newContact, ...contacts], name: '', number: '' };
     });
   };
   handleChange = ({ target }) => {
@@ -32,11 +38,13 @@ class ContactForm extends Component {
     this.setState({ [name]: value });
   };
   render() {
-    const { addContact, handleChange } = this;
+    const { addContact, handleChange, name, number } = this;
     const Contact = this.state.contacts.map(({ id, name, number }) => (
       <li key={id}>
         {name}:{number}
-        <Button type="button">Delete</Button>
+        <Button onClick={() => this.removeContact(id)} type="button">
+          Delete
+        </Button>
       </li>
     ));
     return (
@@ -48,6 +56,7 @@ class ContactForm extends Component {
               <div className={css.formGroup}>
                 <label className={css.label}>Name</label>
                 <input
+                  value={name}
                   onChange={handleChange}
                   placeholder="Name"
                   className={css.input}
@@ -61,6 +70,7 @@ class ContactForm extends Component {
               <div className={css.formGroup}>
                 <label className={css.label}>Number</label>
                 <input
+                  value={number}
                   onChange={handleChange}
                   placeholder="Number"
                   className={css.input}
