@@ -13,6 +13,7 @@ class ContactForm extends Component {
 
     name: '',
     number: '',
+    filter: '',
   };
 
   removeContact(id) {
@@ -54,8 +55,17 @@ class ContactForm extends Component {
     });
     return Boolean(result);
   }
+  getFilteredContacts() {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    const result = contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(normalizedFilter);
+    });
+    return result;
+  }
   render() {
     const { addContact, handleChange, name, number } = this;
+    const contacts = this.getFilteredContacts();
     const Contact = this.state.contacts.map(({ id, name, number }) => (
       <li key={id}>
         {name}:{number}
@@ -104,7 +114,11 @@ class ContactForm extends Component {
           <div>
             <h4>Contacts</h4>
             <label className={css.label}>Find contacts by name</label>
-            <input className={css.input} />
+            <input
+              name="filter"
+              onChange={handleChange}
+              className={css.input}
+            />
             <ul>{Contact}</ul>
           </div>
         </div>
