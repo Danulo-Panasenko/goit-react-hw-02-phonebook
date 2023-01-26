@@ -23,20 +23,35 @@ class ContactForm extends Component {
   }
   addContact = e => {
     e.preventDefault();
+    const { name, number } = this.state;
+    if (this.isDublicate(name)) {
+      return alert(`${name} is already in contacts`);
+    }
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
     this.setState(prevState => {
-      const { name, number, contacts } = prevState;
-      const newContact = {
-        id: nanoid(),
-        name,
-        number,
+      return {
+        contacts: [newContact, ...prevState.contacts],
+        name: '',
+        number: '',
       };
-      return { contacts: [newContact, ...contacts], name: '', number: '' };
     });
   };
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   };
+  isDublicate(name) {
+    const normalizedName = name.toLowerCase();
+    const { contacts } = this.state;
+    const result = contacts.find(({ name }) => {
+      return name.toLowerCase() === normalizedName;
+    });
+    return Boolean(result);
+  }
   render() {
     const { addContact, handleChange, name, number } = this;
     const Contact = this.state.contacts.map(({ id, name, number }) => (
