@@ -27,12 +27,14 @@ class ContactForm extends Component {
     if (this.isDublicate(name)) {
       return alert(`${name} is already in contacts`);
     }
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
+
     this.setState(prevState => {
+      const { name, number, contacts } = prevState;
+      const newContact = {
+        id: nanoid(),
+        name,
+        number,
+      };
       return {
         contacts: [newContact, ...prevState.contacts],
         name: '',
