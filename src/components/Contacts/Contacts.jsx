@@ -1,4 +1,3 @@
-import css from './Contacts.module.css';
 import PropTypes from 'prop-types';
 import Button from 'components/Button/Button';
 const ContactList = ({ removeContact, contacts }) => {

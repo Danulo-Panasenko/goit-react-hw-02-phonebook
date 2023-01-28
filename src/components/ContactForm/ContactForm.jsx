@@ -63,16 +63,19 @@ class ContactForm extends Component {
     const contacts = this.getFilteredContacts();
 
     return (
-      <div>
+      <div className={css.style}>
         <h4>Phonebook</h4>
         <div className={css.wrapper}>
           <div className={css.block}>
-            <Form onSubmit={addContact} />
+            <Form onSubmit={addContact}></Form>
           </div>
           <div>
             <h4>Contacts</h4>
-            <Filter handleChange={handleChange} />
-            <ContactList removeContact={removeContact} contacts={contacts} />
+            <Filter handleChange={handleChange}></Filter>
+            <ContactList
+              removeContact={removeContact}
+              contacts={contacts}
+            ></ContactList>
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@
   display: block;
   grid-template-columns: 400px 400px;
   gap: 30px;
-  text-align: center;
 }
 
 .block {
@@ -23,4 +22,15 @@ li {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+.style {
+  height: 100vh;
+  display: block;
+
+  align-items: center;
+  font-size: 20px;
+  color: #010101;
+  margin-left: 10px;
+  margin-bottom: 30px;
+  margin-right: auto;
 }
