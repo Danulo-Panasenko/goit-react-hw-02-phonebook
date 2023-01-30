@@ -5,26 +5,26 @@ import inititalState from './inititalState.js';
 import PropTypes from 'prop-types';
 class Form extends Component {
   state = { ...inititalState };
-  handleSumbit = e => {
+  handleSubmit = e => {
     e.preventDefault();
     const { onSubmit } = this.props;
-    const result = onSubmit({ ...this.state });
-    if (result) {
-      this.reset();
-    }
+    onSubmit({ ...this.state });
+
+    this.reset();
   };
+
   reset() {
-    this.state({ ...inititalState });
+    this.setState({ ...inititalState });
   }
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
   };
   render() {
-    const { handleChange, handleSumbit } = this;
+    const { handleChange, handleSubmit } = this;
     const { name, number } = this.state;
     return (
-      <form action="" onSubmit={handleSumbit}>
+      <form onSubmit={handleSubmit}>
         <div className={css.formGroup}>
           <label className={css.label}>Name</label>
           <input
@@ -53,7 +53,7 @@ class Form extends Component {
             required
           />
         </div>
-        <Button type="sumbit">Add contact</Button>
+        <Button type="submit">Add contact</Button>
       </form>
     );
   }
